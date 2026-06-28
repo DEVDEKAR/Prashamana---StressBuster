@@ -208,7 +208,7 @@
             border-radius: 10px;
             margin-top: auto;
             background-color: #eee;
-            display: block; /* Ensures visibility elements maintain proper structure */
+            display: block;
         }
 
         /* Responsive Mobile & Tablet Layout Updates */
@@ -292,8 +292,10 @@ const data = {
         ]
     },
     Cognitive: {
-        "Feeling Helpless & Hopeless": ["Reach out directly to professional counselors or trusted guidance networks for emotional support."],
-        "Low Self Confidence": ["Engage in intentional, positive self-talk to redirect mental focus and rebuild personal assurance."],
+        "Feeling Helpless & Hopeless / Low Self Confidence": [
+            "Reach out directly to professional counselors or trusted guidance networks for emotional support.",
+            "Engage in intentional, positive self-talk to redirect mental focus and rebuild personal assurance."
+        ],
         "Negative Thinking": ["Take an active break and go for a relaxing walk in natural, open green environments."]
     },
     Affective: {
@@ -303,9 +305,11 @@ const data = {
     Psychomotor: {
         "Frequent Headaches": ["Perform systematic structural eye exercises to rest optical muscles and lower tension benchmarks."],
         "Muscle Tension / Body Pain": ["Engage in targeted physical stretching exercises to safely release somatic physical stress."],
-        "Irregular Sleep": ["Strictly follow a balanced sleep cycle routine; systematically monitor where your rest gets disturbed and proactively erase those activities."],
-        "Changes in Appetite": ["Adapt eating habits to small, frequent, and well-balanced nutritional meals throughout the day."],
-        "Procrastination": ["Enforce focus parameters by explicitly setting an execution timer or mapping out a rigid activity schedule."]
+        "Irregular Sleep": [
+            "Strictly follow a balanced sleep cycle routine; systematically monitor where your rest gets disturbed and proactively erase those activities.",
+            "Watch this sleep management reference guide: <a href='https://www.youtube.com' target='_blank' onclick='event.stopPropagation();' style='color: #d63031; text-decoration: underline; font-weight: bold;'>Sleep Cycle Video</a>"
+        ],
+        "Changes in Appetite": ["Adapt eating habits to small, frequent, and well-balanced nutritional meals throughout the day."]
     }
 };
 
@@ -338,14 +342,35 @@ function showCards() {
         let solHtml = sols.map(s => `<li>${s}</li>`).join("");
 
         // Base fallback file target
-        let gifFilename = "poor-concentration.gif";
+        let mediaFilename = "poor-concentration.gif";
         
-        // Match specific problem selection strings with exact repository titles
+        // Dynamic file assignments matching repo exactly
         if (p.includes("Excessive Worry")) {
-            gifFilename = "deep-breathing.gif";
+            mediaFilename = "deep breathing.jpg";
+        } else if (p.includes("Poor Concentration")) {
+            mediaFilename = "poor-concentration.gif";
+        } else if (p.includes("Feeling Helpless & Hopeless")) {
+            mediaFilename = "low self confidence.mp4";
+        } else if (p.includes("Negative Thinking")) {
+            mediaFilename = "negavtive thoughts.gif";
+        } else if (p.includes("Crying Easily")) {
+            mediaFilename = "cry.jpeg";
+        } else if (p.includes("Irritability")) {
+            mediaFilename = "irritability.webp";
+        } else if (p.includes("Frequent Headaches")) {
+            mediaFilename = "headache relieving exercise.mp4";
+        } else if (p.includes("Muscle Tension / Body Pain")) {
+            mediaFilename = "body pain.mp4";
+        } else if (p.includes("Changes in Appetite")) {
+            mediaFilename = "changes in apetite.jpeg";
         }
-        if (p.includes("Poor Concentration")) {
-            gifFilename = "poor-concentration.gif";
+
+        // Generate element depending on file extension type
+        let mediaTag = "";
+        if (mediaFilename.endsWith(".mp4")) {
+            mediaTag = `<video class="card-gif" src="${mediaFilename}" autoplay loop muted playsinline></video>`;
+        } else {
+            mediaTag = `<img class="card-gif" src="${mediaFilename}" alt="${p} Visual Guide">`;
         }
         
         container.innerHTML += `
@@ -355,7 +380,7 @@ function showCards() {
                     <div class="card-back">
                         <strong style="color:#d63031; border-bottom:2px solid #ddd; padding-bottom:5px; margin-bottom:8px; display:block;">SOLUTIONS:</strong>
                         <ul class="sol-list">${solHtml}</ul>
-                        <img class="card-gif" src="${gifFilename}" alt="${p} Visual Guide">
+                        ${mediaTag}
                     </div>
                 </div>
             </div>`;
