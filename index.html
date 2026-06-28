@@ -1,25 +1,10 @@
-Here is the updated code for your `index (1).html` file.
-
-### What was modified:
-
-* **Responsive Alignment:** Changed the page layout to use a modern `flex` layout. The layout now centers perfectly on large desktop monitors and laptops while automatically shifting to a centered stacked layout on mobile devices.
-
-
-* **Bigger Image:** Increased the size constraints of the nurse image container (`.nurse-landing`) to occupy up to `80vh` on laptop screens so she appears much larger and matches the height of the domain selection menu flawlessly.
-
-
-* **Exact Problem Sync:** The code retains **only** your specified challenges and solutions.
-
-
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prashamana (प्रशमन): Nurturing the Caregiver</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@800&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <link href="[https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@800&family=Comic+Neue:wght@700&display=swap](https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@800&family=Comic+Neue:wght@700&display=swap)" rel="stylesheet">
     <style>
         /* ================= GLOBAL ================= */
         body, html {
@@ -203,7 +188,7 @@ Here is the updated code for your `index (1).html` file.
             border-radius: 12px;
         }
 
-        .card { width: 280px; height: 320px; perspective: 1000px; }
+        .card { width: 280px; height: 340px; perspective: 1000px; }
         .card-inner { width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; position: relative; }
         .card.flipped .card-inner { transform: rotateY(180deg); }
         
@@ -301,7 +286,7 @@ const data = {
     Academic: {
         "Poor Concentration": [
             "Utilize the Pomodoro Technique: study dedicatedly for 25 minutes, then take a short 5-minute mental break.",
-            "Watch this helpful guide: <a href='https://youtube.com/shorts/YdB7I6X8x9U?si=E3XNmDQgSBo1N6yl' target='_blank' style='color: #d63031; text-decoration: underline;'>Pomodoro Technique Video</a>"
+            "Watch this helpful guide: <a href='[https://youtube.com/shorts/YdB7I6X8x9U?si=E3XNmDQgSBo1N6yl](https://youtube.com/shorts/YdB7I6X8x9U?si=E3XNmDQgSBo1N6yl)' target='_blank' style='color: #d63031; text-decoration: underline; font-weight: bold;'>Pomodoro Technique Video</a>"
         ],
         "Excessive Worry / Exam Anxiety / Fear of Failure": [
             "Practice systematic deep breathing patterns to lower stress signals and restore steady focus."
@@ -325,68 +310,73 @@ const data = {
     }
 };
 
-```
+let currentDomain = "";
 
-    let currentDomain = "";
+function selectDomain(domain) {
+    currentDomain = domain;
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page2").classList.add("active");
+    document.getElementById("domainTitle").innerText = domain + " Challenges";
+    
+    let list = "";
+    for (let prob in data[domain]) {
+        list += `<label style="display:flex; align-items:center; font-size:1.15rem; margin-bottom:12px; cursor:pointer; background: #fff; padding: 10px; border-radius: 12px; border: 2px solid #eee; box-shadow: 3px 3px 0px rgba(0,0,0,0.05);">
+                 <input type="checkbox" value="${prob}" style="width:20px; height:20px; margin-right:15px;"> ${prob}</label>`;
+    }
+    document.getElementById("problemList").innerHTML = list;
+}
 
-    function selectDomain(domain) {
-        currentDomain = domain;
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById("page2").classList.add("active");
-        document.getElementById("domainTitle").innerText = domain + " Challenges";
+function showCards() {
+    const selected = document.querySelectorAll('#problemList input:checked');
+    if (selected.length === 0) return alert("Please select a challenge!");
+
+    const container = document.getElementById("cards");
+    container.innerHTML = "";
+
+    selected.forEach(item => {
+        let p = item.value;
+        let sols = data[currentDomain][p];
+        let solHtml = sols.map(s => `<li>${s}</li>`).join("");
+
+        // Default auto-generated filename conversion
+        let gifFilename = p.toLowerCase()
+                           .replace(/[^a-z0-9\s/]/g, '')
+                           .replace(/[\s/]+/g, '-');
         
-        let list = "";
-        for (let prob in data[domain]) {
-            list += `<label style="display:flex; align-items:center; font-size:1.15rem; margin-bottom:12px; cursor:pointer; background: #fff; padding: 10px; border-radius: 12px; border: 2px solid #eee; box-shadow: 3px 3px 0px rgba(0,0,0,0.05);">
-                     <input type="checkbox" value="${prob}" style="width:20px; height:20px; margin-right:15px;"> ${prob}</label>`;
+        // Shortened Clean Image Naming Overrides
+        if (p.includes("Excessive Worry")) {
+            gifFilename = "deep-breathing";
         }
-        document.getElementById("problemList").innerHTML = list;
-    }
-
-    function showCards() {
-        const selected = document.querySelectorAll('#problemList input:checked');
-        if (selected.length === 0) return alert("Please select a challenge!");
-
-        const container = document.getElementById("cards");
-        container.innerHTML = "";
-
-        selected.forEach(item => {
-            let p = item.value;
-            let sols = data[currentDomain][p];
-            let solHtml = sols.map(s => `<li>${s}</li>`).join("");
-
-            let gifFilename = p.toLowerCase()
-                               .replace(/[^a-z0-9\s/]/g, '')
-                               .replace(/[\s/]+/g, '-');
-            
-            container.innerHTML += `
-                <div class="card" onclick="this.classList.toggle('flipped')">
-                    <div class="card-inner">
-                        <div class="card-front">${p}</div>
-                        <div class="card-back">
-                            <strong style="color:#d63031; border-bottom:2px solid #ddd; padding-bottom:5px; margin-bottom:8px; display:block;">SOLUTIONS:</strong>
-                            <ul class="sol-list">${solHtml}</ul>
-                            <img class="card-gif" src="${gifFilename}.gif" alt="${p} Visual Guide" onerror="this.style.display='none';">
-                        </div>
+        if (p.includes("Poor Concentration")) {
+            gifFilename = "poor-concentration";
+        }
+        
+        container.innerHTML += `
+            <div class="card" onclick="this.classList.toggle('flipped')">
+                <div class="card-inner">
+                    <div class="card-front">${p}</div>
+                    <div class="card-back">
+                        <strong style="color:#d63031; border-bottom:2px solid #ddd; padding-bottom:5px; margin-bottom:8px; display:block;">SOLUTIONS:</strong>
+                        <ul class="sol-list">${solHtml}</ul>
+                        <img class="card-gif" src="${gifFilename}.gif" alt="${p} Visual Guide" onerror="this.style.display='none';">
                     </div>
-                </div>`;
-        });
+                </div>
+            </div>`;
+    });
 
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById("page3").classList.add("active");
-    }
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page3").classList.add("active");
+}
 
-    function goHome() {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById("page1").classList.add("active");
-    }
+function goHome() {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page1").classList.add("active");
+}
 
-    function goBackProblems() {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById("page2").classList.add("active");
-    }
+function goBackProblems() {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page2").classList.add("active");
+}
 </script>
 </body>
 </html>
-
-```
