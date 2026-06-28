@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prashamana (प्रशमन): Nurturing the Caregiver</title>
-    <link href="[https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@800&family=Comic+Neue:wght@700&display=swap](https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@800&family=Comic+Neue:wght@700&display=swap)" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@800&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
     <style>
         /* ================= GLOBAL ================= */
         body, html {
@@ -66,7 +66,6 @@
             z-index: 10;
         }
 
-        /* Made the landing page girl image larger and structurally centered */
         .nurse-landing {
             flex: 1.4;
             height: 100%;
@@ -74,7 +73,6 @@
             background-size: contain;
         }
 
-        /* Keeps menu elements aligned perfectly next to or below the image */
         .domain-menu {
             flex: 1;
             display: flex;
@@ -284,9 +282,9 @@
 <script>
 const data = {
     Academic: {
-       "Poor Concentration": [
+        "Poor Concentration": [
             "Utilize the Pomodoro Technique: study dedicatedly for 25 minutes, then take a short 5-minute mental break.",
-            "Watch this helpful guide: <a href='https://youtube.com/shorts/YdB7I6X8x9U' target='_blank' style='color: #d63031; text-decoration: underline; font-weight: bold;'>Pomodoro Technique Video</a>"
+            "Watch this helpful guide: <a href='https://youtube.com/shorts/YdB7I6X8x9U' target='_blank' onclick='event.stopPropagation();' style='color: #d63031; text-decoration: underline; font-weight: bold;'>Pomodoro Technique Video</a>"
         ],
         "Excessive Worry / Exam Anxiety / Fear of Failure": [
             "Practice systematic deep breathing patterns to lower stress signals and restore steady focus."
@@ -338,12 +336,10 @@ function showCards() {
         let sols = data[currentDomain][p];
         let solHtml = sols.map(s => `<li>${s}</li>`).join("");
 
-        // Default auto-generated filename conversion
         let gifFilename = p.toLowerCase()
                            .replace(/[^a-z0-9\s/]/g, '')
                            .replace(/[\s/]+/g, '-');
         
-        // Shortened Clean Image Naming Overrides
         if (p.includes("Excessive Worry")) {
             gifFilename = "deep-breathing";
         }
