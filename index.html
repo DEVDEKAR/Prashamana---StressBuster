@@ -143,12 +143,12 @@
         }
 
         .p3-cards-container {
-            flex: 1.2;
+            flex: 1.5;
             height: 90%;
             background: rgba(255, 255, 255, 0.95);
             border: 6px solid #2d3436;
             border-radius: 35px;
-            padding: 30px;
+            padding: 35px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -186,37 +186,42 @@
             border-radius: 12px;
         }
 
-        /* Responsive Card container dimensions */
-        .card { width: 100%; height: 420px; perspective: 1000px; }
-        .card.large-media { height: 500px; } /* Gives extra room for bigger media elements */
+        /* ENLARGED CARD GEOMETRY - Fills out maximum whiteboard area */
+        .card { 
+            width: 100%; 
+            max-width: 650px; 
+            height: 550px; 
+            perspective: 1500px; 
+        }
         
         .card-inner { width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; position: relative; }
         .card.flipped .card-inner { transform: rotateY(180deg); }
         
         .card-front, .card-back {
             position: absolute; width: 100%; height: 100%;
-            backface-visibility: hidden; border: 4px solid #2d3436; border-radius: 20px;
-            padding: 20px; box-sizing: border-box; display: flex; flex-direction: column;
+            backface-visibility: hidden; border: 5px solid #2d3436; border-radius: 25px;
+            padding: 30px; box-sizing: border-box; display: flex; flex-direction: column;
         }
-        .card-front { background: #ff7675; color: white; font-family: 'Bangers'; justify-content: center; align-items: center; font-size: 1.8rem; text-align: center; }
+        .card-front { background: #ff7675; color: white; font-family: 'Bangers'; justify-content: center; align-items: center; font-size: 2.5rem; text-align: center; letter-spacing: 1px; }
         .card-back { background: #55efc4; transform: rotateY(180deg); text-align: left; overflow-y: auto; justify-content: flex-start; }
 
-        .sol-list { margin: 5px 0 15px 0; padding-left: 20px; font-weight: bold; font-size: 1rem; line-height: 1.5; }
+        .sol-list { margin: 10px 0 20px 0; padding-left: 25px; font-weight: bold; font-size: 1.25rem; line-height: 1.6; color: #2d3436; }
         
+        /* Inline media matches the new wide proportions cleanly */
         .inline-media {
             width: 100%;
             height: auto;
-            max-height: 180px;
+            max-height: 280px;
             object-fit: contain;
-            border-radius: 10px;
-            border: 2px solid #2d3436;
+            border-radius: 15px;
+            border: 3px solid #2d3436;
             margin-top: auto;
             background: white;
         }
 
-        /* Custom sizing class for deep breathing GIF */
+        /* Maximized footprint class for deep breathing GIF asset */
         .large-breathing-gif {
-            max-height: 280px !important; 
+            max-height: 340px !important; 
         }
 
         /* Responsive Mobile & Tablet Layout Updates */
@@ -239,11 +244,11 @@
                 padding-bottom: 30px;
             }
             .p3-layout { flex-direction: column; overflow-y: auto; }
-            .p3-nurse-full { height: 35vh; width: 100%; }
-            .p3-cards-container { width: 100%; height: auto; min-height: 50vh; padding: 15px; }
+            .p3-nurse-full { height: 30vh; width: 100%; }
+            .p3-cards-container { width: 100%; height: auto; min-height: 60vh; padding: 15px; }
             .nav-btn { top: 75px; left: 15px; font-size: 0.9rem; }
-            .card { height: 460px; }
-            .card.large-media { height: 540px; }
+            .card { height: 500px; }
+            .sol-list { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -360,14 +365,11 @@ function showCards() {
 
     let checkText = p.toLowerCase();
     let mediaFilename = "";
-    let isLargeMedia = false;
     
     // Assign media assets based on keywords
     if (checkText.includes("worry") || checkText.includes("anxiety") || checkText.includes("breathing")) {
         mediaFilename = "deep breathing.gif";
-        isLargeMedia = true; // Flag to apply expanded size properties
     } else if (checkText.includes("concentration")) {
-        // No graphic block requested here for Poor Concentration since video link is loaded directly into text
         mediaFilename = ""; 
     } else if (checkText.includes("helpless") || checkText.includes("confidence")) {
         mediaFilename = "low self confidence.mp4";
@@ -396,14 +398,14 @@ function showCards() {
         }
     }
     
-    // Renders the cleaner page presentation structure
+    // Renders the wide card structure targeting entire white space areas
     container.innerHTML = `
-        <div style="width: 100%; max-width: 360px; margin: auto;">
-            <div class="card ${isLargeMedia ? 'large-media' : ''}" onclick="this.classList.toggle('flipped')">
+        <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+            <div class="card" onclick="this.classList.toggle('flipped')">
                 <div class="card-inner">
                     <div class="card-front">${p}</div>
                     <div class="card-back">
-                        <strong style="color:#d63031; border-bottom:2px solid #ddd; padding-bottom:5px; margin-bottom:8px; display:block;">SOLUTION:</strong>
+                        <strong style="color:#d63031; font-size:1.5rem; border-bottom:3px solid #2d3436; padding-bottom:5px; margin-bottom:12px; display:block; font-family:'Montserrat'; text-transform:uppercase;">SOLUTION:</strong>
                         <ul class="sol-list">${solHtml}</ul>
                         ${mediaTag}
                     </div>
