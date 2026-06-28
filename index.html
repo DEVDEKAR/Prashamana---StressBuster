@@ -5,134 +5,160 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prashamana: Nurturing the Caregiver</title>
     <style>
-        /* Base Page Styling */
+        /* Global Page Settings */
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #dca09c; /* Matches the dusty rose background */
+            background-color: #dca09c; /* Dusty rose background color */
+            box-sizing: border-box;
         }
 
-        /* Top Header */
+        /* Top White Title Header */
         .header {
             text-align: center;
             font-size: 28px;
             font-weight: bold;
             letter-spacing: 1px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             background: white;
-            padding: 10px 0;
+            padding: 15px 0;
             text-transform: uppercase;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         .header span {
-            color: #d33; /* Red underline/text highlight style */
+            color: #d33; 
             border-bottom: 3px solid #d33;
+            padding-bottom: 2px;
         }
 
-        /* Main Split Container */
+        /* Main Split View Container */
         .main-container {
             display: flex;
-            gap: 20px;
-            max-width: 1200px;
+            gap: 25px;
+            max-width: 1300px;
             margin: 0 auto;
             align-items: stretch;
         }
 
-        /* Left Side (Nurse Illustration Card) */
+        /* Left Column: Nurse Illustration Card */
         .left-card {
-            flex: 1;
+            flex: 1.1;
             background: white;
-            border-radius: 20px;
-            padding: 20px;
+            border-radius: 25px;
+            padding: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
+            min-height: 450px;
         }
+        
+        /* Back Button Style */
         .back-btn {
             position: absolute;
-            top: 20px;
+            top: 25px;
             left: -10px;
             background: #ff3333;
             color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 10px 20px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: bold;
             font-size: 14px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 2px 4px 8px rgba(0,0,0,0.15);
+            transition: transform 0.2s;
         }
+        .back-btn:hover {
+            transform: scale(1.05);
+        }
+        
         .left-card img {
-            max-width: 90%;
+            max-width: 85%;
             height: auto;
+            display: block;
         }
 
-        /* Right Side (Content & Solutions Card) */
+        /* Right Column: Outer Card Wrapper */
         .right-card {
             flex: 1;
             background: #f7f7f7;
-            border: 4px solid #333;
-            border-radius: 40px; /* Distinct rounded thick border */
-            padding: 40px 30px;
+            border: 4px solid #333333;
+            border-radius: 40px; 
+            padding: 35px 25px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
         }
 
-        /* Inside Green Solutions Card */
+        /* Inner Mint Green Solutions Box */
         .solutions-box {
-            background-color: #5ce6b0; /* Bright mint green background */
-            border: 2px solid #333;
-            border-radius: 15px;
-            padding: 20px;
-            color: #000;
+            background-color: #5ce6b0; /* Mint Green */
+            border: 2px solid #333333;
+            border-radius: 20px;
+            padding: 25px;
+            box-sizing: border-box;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
+        
         .solutions-box h3 {
             margin-top: 0;
-            color: #d33;
-            font-size: 20px;
-            letter-spacing: 1px;
+            margin-bottom: 15px;
+            color: #ff3333;
+            font-size: 22px;
+            letter-spacing: 0.5px;
         }
+        
         .solutions-box ul {
             padding-left: 20px;
-            line-height: 1.5;
-            font-size: 16px;
-            font-weight: 500;
+            margin-top: 0;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 17px;
+            font-weight: 600;
+            color: #111;
         }
 
-        /* The GIF Styling */
+        /* Container designed strictly for the GIF file */
         .gif-container {
-            margin-top: 20px;
             background: white;
-            border: 2px solid #333;
-            border-radius: 15px;
-            overflow: hidden;
+            border: 2px solid #333333;
+            border-radius: 18px;
+            padding: 5px;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
+            margin-top: auto; 
         }
+        
         .gif-container img {
             width: 100%;
             height: auto;
+            border-radius: 12px;
             display: block;
         }
     </style>
 </head>
 <body>
 
+    <!-- Main Header -->
     <div class="header">
         PRASHAMANA: <span>NURTURING THE CAREGIVER</span>
     </div>
 
+    <!-- Layout Grid -->
     <div class="main-container">
-        <!-- LEFT CARD: Nurse Image -->
+        
+        <!-- LEFT SIDE: Holds back button and Nurse Image -->
         <div class="left-card">
             <a href="#" class="back-btn">&larr; BACK</a>
-            <!-- Replace 'nurse.png' with your actual illustration filename if different -->
-            <img src="nurse.png" alt="Nurse Illustration">
+            <!-- Change this filename to 1.jpeg or 3.webp if the WhatsApp image is not the nurse image -->
+            <img src="WhatsApp Image 2026-06-27 at ... " alt="Nurse Illustration">
         </div>
 
-        <!-- RIGHT CARD: Text and Local GIF -->
+        <!-- RIGHT SIDE: Holds Solutions and the local GIF file -->
         <div class="right-card">
             <div class="solutions-box">
                 <h3>SOLUTIONS:</h3>
@@ -140,12 +166,13 @@
                     <li>Practice systematic deep breathing patterns to lower stress signals and restore steady focus.</li>
                 </ul>
 
-                <!-- FIXED LOCAL GIF ELEMENT -->
+                <!-- GIF Element pointed straight to your repository name -->
                 <div class="gif-container">
-                    <img src="guide.gif" alt="Excessive Worry / Exam Anxiety / Fear of Failure Visual Guide">
+                    <img src="deep%20breathing.gif" alt="Excessive Worry / Exam Anxiety / Fear of Failure Visual Guide">
                 </div>
             </div>
         </div>
+
     </div>
 
 </body>
