@@ -186,27 +186,37 @@
             border-radius: 12px;
         }
 
-        .card { width: 100%; height: 280px; perspective: 1000px; }
+        /* Responsive Card container dimensions */
+        .card { width: 100%; height: 420px; perspective: 1000px; }
+        .card.large-media { height: 500px; } /* Gives extra room for bigger media elements */
+        
         .card-inner { width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; position: relative; }
         .card.flipped .card-inner { transform: rotateY(180deg); }
         
         .card-front, .card-back {
             position: absolute; width: 100%; height: 100%;
             backface-visibility: hidden; border: 4px solid #2d3436; border-radius: 20px;
-            padding: 15px; box-sizing: border-box; display: flex; flex-direction: column;
+            padding: 20px; box-sizing: border-box; display: flex; flex-direction: column;
         }
-        .card-front { background: #ff7675; color: white; font-family: 'Bangers'; justify-content: center; align-items: center; font-size: 1.6rem; text-align: center; }
-        .card-back { background: #55efc4; transform: rotateY(180deg); text-align: left; overflow-y: auto; }
+        .card-front { background: #ff7675; color: white; font-family: 'Bangers'; justify-content: center; align-items: center; font-size: 1.8rem; text-align: center; }
+        .card-back { background: #55efc4; transform: rotateY(180deg); text-align: left; overflow-y: auto; justify-content: flex-start; }
 
-        .sol-list { margin: 5px 0 10px 0; padding-left: 20px; font-weight: bold; font-size: 1rem; line-height: 1.5; }
+        .sol-list { margin: 5px 0 15px 0; padding-left: 20px; font-weight: bold; font-size: 1rem; line-height: 1.5; }
         
-        .card-gif {
+        .inline-media {
             width: 100%;
             height: auto;
-            max-height: 200px;
+            max-height: 180px;
             object-fit: contain;
             border-radius: 10px;
-            display: block;
+            border: 2px solid #2d3436;
+            margin-top: auto;
+            background: white;
+        }
+
+        /* Custom sizing class for deep breathing GIF */
+        .large-breathing-gif {
+            max-height: 280px !important; 
         }
 
         /* Responsive Mobile & Tablet Layout Updates */
@@ -230,8 +240,10 @@
             }
             .p3-layout { flex-direction: column; overflow-y: auto; }
             .p3-nurse-full { height: 35vh; width: 100%; }
-            .p3-cards-container { width: 100%; height: auto; min-height: 50vh; }
+            .p3-cards-container { width: 100%; height: auto; min-height: 50vh; padding: 15px; }
             .nav-btn { top: 75px; left: 15px; font-size: 0.9rem; }
+            .card { height: 460px; }
+            .card.large-media { height: 540px; }
         }
     </style>
 </head>
@@ -282,7 +294,7 @@
 const data = {
     Academic: {
         "Poor Concentration": [
-            "Practice the specific hand movement exercise shown in the video below to synchronize your brain hemispheres and improve focus.",
+            "Practice the specific hand movement exercise shown in the video link below to synchronize your brain hemispheres and improve focus.",
             "Watch this YouTube Short: <a href='https://youtube.com/shorts/YdB7I6X8x9U' target='_blank' onclick='event.stopPropagation();' style='color: #d63031; text-decoration: underline; font-weight: bold;'>Hand Movement Activity</a>"
         ],
         "Excessive Worry / Exam Anxiety / Fear of Failure": [
@@ -322,7 +334,6 @@ function selectDomain(domain) {
     let list = "";
     let isFirst = true;
     for (let prob in data[domain]) {
-        // Changed input type to 'radio' with the same name group so only one can be checked at once
         list += `<label style="display:flex; align-items:center; font-size:1.15rem; margin-bottom:12px; cursor:pointer; background: #fff; padding: 10px; border-radius: 12px; border: 2px solid #eee; box-shadow: 3px 3px 0px rgba(0,0,0,0.05);">
                  <input type="radio" name="problemGroup" value="${prob}" ${isFirst ? 'checked' : ''} style="width:20px; height:20px; margin-right:15px;"> ${prob}</label>`;
         isFirst = false;
@@ -349,11 +360,15 @@ function showCards() {
 
     let checkText = p.toLowerCase();
     let mediaFilename = "";
+    let isLargeMedia = false;
     
+    // Assign media assets based on keywords
     if (checkText.includes("worry") || checkText.includes("anxiety") || checkText.includes("breathing")) {
         mediaFilename = "deep breathing.gif";
+        isLargeMedia = true; // Flag to apply expanded size properties
     } else if (checkText.includes("concentration")) {
-        mediaFilename = "negavtive thoughts.gif"; 
+        // No graphic block requested here for Poor Concentration since video link is loaded directly into text
+        mediaFilename = ""; 
     } else if (checkText.includes("helpless") || checkText.includes("confidence")) {
         mediaFilename = "low self confidence.mp4";
     } else if (checkText.includes("negative")) {
@@ -368,32 +383,31 @@ function showCards() {
         mediaFilename = "body pain.mp4";
     } else if (checkText.includes("appetite") || checkText.includes("apetite")) {
         mediaFilename = "changes in apetite.jpeg";
-    } else {
-        mediaFilename = "negavtive thoughts.gif";
     }
 
     let mediaTag = "";
-    if (mediaFilename.endsWith(".mp4")) {
-        mediaTag = `<video class="card-gif" src="${mediaFilename}" autoplay loop muted playsinline controls></video>`;
-    } else {
-        mediaTag = `<img class="card-gif" src="${mediaFilename}" alt="${p} Visual Guide">`;
+    if (mediaFilename !== "") {
+        if (mediaFilename.endsWith(".mp4")) {
+            mediaTag = `<video class="inline-media" src="${mediaFilename}" autoplay loop muted playsinline controls onclick="event.stopPropagation();"></video>`;
+        } else if (mediaFilename === "deep breathing.gif") {
+            mediaTag = `<img class="inline-media large-breathing-gif" src="${mediaFilename}" alt="Deep Breathing Exercise" onclick="event.stopPropagation();">`;
+        } else {
+            mediaTag = `<img class="inline-media" src="${mediaFilename}" alt="Visual Activity Guide" onclick="event.stopPropagation();">`;
+        }
     }
     
-    // Renders exactly one single structured column/container layout for clean viewing
+    // Renders the cleaner page presentation structure
     container.innerHTML = `
-        <div style="display:flex; flex-direction:column; gap:15px; width: 100%; max-width: 320px; margin: auto;">
-            <div class="card" onclick="this.classList.toggle('flipped')">
+        <div style="width: 100%; max-width: 360px; margin: auto;">
+            <div class="card ${isLargeMedia ? 'large-media' : ''}" onclick="this.classList.toggle('flipped')">
                 <div class="card-inner">
                     <div class="card-front">${p}</div>
                     <div class="card-back">
                         <strong style="color:#d63031; border-bottom:2px solid #ddd; padding-bottom:5px; margin-bottom:8px; display:block;">SOLUTION:</strong>
                         <ul class="sol-list">${solHtml}</ul>
+                        ${mediaTag}
                     </div>
                 </div>
-            </div>
-            
-            <div style="width: 100%; background: white; padding: 10px; border: 4px solid #2d3436; border-radius: 15px; box-sizing: border-box; box-shadow: 4px 4px 0px rgba(0,0,0,0.1);">
-                ${mediaTag}
             </div>
         </div>`;
 
