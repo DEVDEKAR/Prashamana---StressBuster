@@ -95,7 +95,11 @@ const data = {
     Academic: { "Poor Concentration": ["Practice specific hand movements."], "Excessive Worry": ["Practice deep breathing."] },
     Cognitive: { "Feeling Helpless": ["Reach out to professionals."], "Negative Thinking": ["Take a walk in nature."] },
     Affective: { "Crying Easily": ["Allow emotional release."], "Irritability": ["Talk to a friend."] },
-    Psychomotor: { "Frequent Headaches": ["Structural eye exercises."], "Muscle Tension": ["Targeted stretching."] }
+    Psychomotor: { 
+        "Frequent Headaches": ["Structural eye exercises."], 
+        "Muscle Tension": ["Targeted stretching."],
+        "Irregular Sleep": ["Maintain a consistent sleep cycle.", "Watch: <a href='https://youtube.com/shorts/GeQK1Ej-Fpg' target='_blank' style='color:blue;'>Sleep Cycle Guide</a>"]
+    }
 };
 
 let currentDomain = "";
@@ -119,7 +123,6 @@ function showCards() {
     const p = selected.value;
     const container = document.getElementById("cards");
     
-    // Simple logic for media (can be expanded)
     let mediaTag = (p.includes("Worry") || p.includes("breathing")) ? '<img class="inline-media" src="deep breathing.gif">' : '';
     
     container.innerHTML = `
