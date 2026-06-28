@@ -150,12 +150,10 @@
             border-radius: 35px;
             padding: 30px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
             justify-content: center;
+            align-items: center;
             overflow-y: auto;
             box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
-            align-items: flex-start;
         }
 
         /* ================= UI ELEMENTS ================= */
@@ -202,7 +200,6 @@
 
         .sol-list { margin: 5px 0 10px 0; padding-left: 20px; font-weight: bold; font-size: 1rem; line-height: 1.5; }
         
-        /* Updated GIF class to fit nicely outside the card */
         .card-gif {
             width: 100%;
             height: auto;
@@ -268,7 +265,7 @@
         <div class="problem-content">
             <h2 id="domainTitle" style="font-family:'Bangers'; color: #d63031; text-align: center; font-size: 2rem; margin-top:0;"></h2>
             <div id="problemList"></div>
-            <button class="btn-main" style="width: 100%; background: #2ecc71; margin-top: 20px;" onclick="showCards()">VIEW SOLUTIONS</button>
+            <button class="btn-main" style="width: 100%; background: #2ecc71; margin-top: 20px;" onclick="showCards()">VIEW SOLUTION</button>
         </div>
     </div>
 </div>
@@ -323,81 +320,82 @@ function selectDomain(domain) {
     document.getElementById("domainTitle").innerText = domain + " Challenges";
     
     let list = "";
+    let isFirst = true;
     for (let prob in data[domain]) {
+        // Changed input type to 'radio' with the same name group so only one can be checked at once
         list += `<label style="display:flex; align-items:center; font-size:1.15rem; margin-bottom:12px; cursor:pointer; background: #fff; padding: 10px; border-radius: 12px; border: 2px solid #eee; box-shadow: 3px 3px 0px rgba(0,0,0,0.05);">
-                 <input type="checkbox" value="${prob}" style="width:20px; height:20px; margin-right:15px;"> ${prob}</label>`;
+                 <input type="radio" name="problemGroup" value="${prob}" ${isFirst ? 'checked' : ''} style="width:20px; height:20px; margin-right:15px;"> ${prob}</label>`;
+        isFirst = false;
     }
     document.getElementById("problemList").innerHTML = list;
 }
 
 function showCards() {
-    const selected = document.querySelectorAll('#problemList input:checked');
-    if (selected.length === 0) return alert("Please select a challenge!");
+    const selected = document.querySelector('#problemList input[name="problemGroup"]:checked');
+    if (!selected) return alert("Please select a challenge!");
 
     const container = document.getElementById("cards");
     container.innerHTML = "";
 
-    selected.forEach(item => {
-        let p = item.value.trim();
-        let sols = data[currentDomain][p];
-        
-        let solHtml = "";
-        if (sols) {
-            solHtml = sols.map(s => `<li>${s}</li>`).join("");
-        } else {
-            solHtml = "<li>Practice structured mindfulness and decompression routines regularly.</li>";
-        }
+    let p = selected.value.trim();
+    let sols = data[currentDomain][p];
+    
+    let solHtml = "";
+    if (sols) {
+        solHtml = sols.map(s => `<li>${s}</li>`).join("");
+    } else {
+        solHtml = "<li>Practice structured mindfulness and decompression routines regularly.</li>";
+    }
 
-        let checkText = p.toLowerCase();
-        let mediaFilename = "";
-        
-        if (checkText.includes("worry") || checkText.includes("anxiety") || checkText.includes("breathing")) {
-            mediaFilename = "deep breathing.gif";
-        } else if (checkText.includes("concentration")) {
-            mediaFilename = "negavtive thoughts.gif"; 
-        } else if (checkText.includes("helpless") || checkText.includes("confidence")) {
-            mediaFilename = "low self confidence.mp4";
-        } else if (checkText.includes("negative")) {
-            mediaFilename = "negavtive thoughts.gif";
-        } else if (checkText.includes("crying") || checkText.includes("cry")) {
-            mediaFilename = "cry.jpeg";
-        } else if (checkText.includes("irritability")) {
-            mediaFilename = "irritability.webp";
-        } else if (checkText.includes("headache")) {
-            mediaFilename = "headache relieving exercise.mp4";
-        } else if (checkText.includes("tension") || checkText.includes("body pain")) {
-            mediaFilename = "body pain.mp4";
-        } else if (checkText.includes("appetite") || checkText.includes("apetite")) {
-            mediaFilename = "changes in apetite.jpeg";
-        } else {
-            mediaFilename = "negavtive thoughts.gif";
-        }
+    let checkText = p.toLowerCase();
+    let mediaFilename = "";
+    
+    if (checkText.includes("worry") || checkText.includes("anxiety") || checkText.includes("breathing")) {
+        mediaFilename = "deep breathing.gif";
+    } else if (checkText.includes("concentration")) {
+        mediaFilename = "negavtive thoughts.gif"; 
+    } else if (checkText.includes("helpless") || checkText.includes("confidence")) {
+        mediaFilename = "low self confidence.mp4";
+    } else if (checkText.includes("negative")) {
+        mediaFilename = "negavtive thoughts.gif";
+    } else if (checkText.includes("crying") || checkText.includes("cry")) {
+        mediaFilename = "cry.jpeg";
+    } else if (checkText.includes("irritability")) {
+        mediaFilename = "irritability.webp";
+    } else if (checkText.includes("headache")) {
+        mediaFilename = "headache relieving exercise.mp4";
+    } else if (checkText.includes("tension") || checkText.includes("body pain")) {
+        mediaFilename = "body pain.mp4";
+    } else if (checkText.includes("appetite") || checkText.includes("apetite")) {
+        mediaFilename = "changes in apetite.jpeg";
+    } else {
+        mediaFilename = "negavtive thoughts.gif";
+    }
 
-        let mediaTag = "";
-        if (mediaFilename.endsWith(".mp4")) {
-            mediaTag = `<video class="card-gif" src="${mediaFilename}" autoplay loop muted playsinline controls></video>`;
-        } else {
-            mediaTag = `<img class="card-gif" src="${mediaFilename}" alt="${p} Visual Guide">`;
-        }
-        
-        container.innerHTML += `
-            <div style="display:flex; flex-direction:column; gap:15px; width: 100%; max-width: 300px;">
-                <div class="card" onclick="this.classList.toggle('flipped')">
-                    <div class="card-inner">
-                        <div class="card-front">${p}</div>
-                        <div class="card-back">
-                            <strong style="color:#d63031; border-bottom:2px solid #ddd; padding-bottom:5px; margin-bottom:8px; display:block;">SOLUTIONS:</strong>
-                            <ul class="sol-list">${solHtml}</ul>
-                        </div>
+    let mediaTag = "";
+    if (mediaFilename.endsWith(".mp4")) {
+        mediaTag = `<video class="card-gif" src="${mediaFilename}" autoplay loop muted playsinline controls></video>`;
+    } else {
+        mediaTag = `<img class="card-gif" src="${mediaFilename}" alt="${p} Visual Guide">`;
+    }
+    
+    // Renders exactly one single structured column/container layout for clean viewing
+    container.innerHTML = `
+        <div style="display:flex; flex-direction:column; gap:15px; width: 100%; max-width: 320px; margin: auto;">
+            <div class="card" onclick="this.classList.toggle('flipped')">
+                <div class="card-inner">
+                    <div class="card-front">${p}</div>
+                    <div class="card-back">
+                        <strong style="color:#d63031; border-bottom:2px solid #ddd; padding-bottom:5px; margin-bottom:8px; display:block;">SOLUTION:</strong>
+                        <ul class="sol-list">${solHtml}</ul>
                     </div>
                 </div>
-                
-                <!-- NEW SEPARATE WIDE BOX FOR GIF/VIDEO -->
-                <div style="width: 100%; background: white; padding: 10px; border: 4px solid #2d3436; border-radius: 15px; box-sizing: border-box; box-shadow: 4px 4px 0px rgba(0,0,0,0.1);">
-                    ${mediaTag}
-                </div>
-            </div>`;
-    });
+            </div>
+            
+            <div style="width: 100%; background: white; padding: 10px; border: 4px solid #2d3436; border-radius: 15px; box-sizing: border-box; box-shadow: 4px 4px 0px rgba(0,0,0,0.1);">
+                ${mediaTag}
+            </div>
+        </div>`;
 
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById("page3").classList.add("active");
