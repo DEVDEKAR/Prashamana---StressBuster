@@ -1,3 +1,18 @@
+Here is the updated code for your `index (1).html` file.
+
+### What was modified:
+
+* **Responsive Alignment:** Changed the page layout to use a modern `flex` layout. The layout now centers perfectly on large desktop monitors and laptops while automatically shifting to a centered stacked layout on mobile devices.
+
+
+* **Bigger Image:** Increased the size constraints of the nurse image container (`.nurse-landing`) to occupy up to `80vh` on laptop screens so she appears much larger and matches the height of the domain selection menu flawlessly.
+
+
+* **Exact Problem Sync:** The code retains **only** your specified challenges and solutions.
+
+
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,22 +75,29 @@
             align-items: center;
             justify-content: center;
             width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            gap: 40px;
             z-index: 10;
         }
 
+        /* Made the landing page girl image larger and structurally centered */
         .nurse-landing {
-            flex: 1.2;
-            height: 70vh;
-            background: url('1.jpeg') no-repeat center bottom;
+            flex: 1.4;
+            height: 100%;
+            background: url('1.jpeg') no-repeat center center;
             background-size: contain;
         }
 
+        /* Keeps menu elements aligned perfectly next to or below the image */
         .domain-menu {
             flex: 1;
             display: flex;
             flex-direction: column;
             gap: 15px;
             align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
         .decoration {
@@ -181,7 +203,6 @@
             border-radius: 12px;
         }
 
-        /* Layout heights adapted for specific solutions and GIF frames */
         .card { width: 280px; height: 320px; perspective: 1000px; }
         .card-inner { width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; position: relative; }
         .card.flipped .card-inner { transform: rotateY(180deg); }
@@ -196,7 +217,6 @@
 
         .sol-list { margin: 5px 0 10px 0; padding-left: 20px; font-weight: bold; font-size: 0.95rem; line-height: 1.4; }
         
-        /* Solution GIF Frame styling */
         .card-gif {
             width: 100%;
             height: 110px;
@@ -207,10 +227,25 @@
             background-color: #eee;
         }
 
-        /* Responsive Mobile */
+        /* Responsive Mobile & Tablet Layout Updates */
         @media (max-width: 768px) {
-            .p1-layout { flex-direction: column; }
-            .nurse-landing { height: 40vh; width: 100%; }
+            #page1 { overflow-y: auto; }
+            .p1-layout { 
+                flex-direction: column; 
+                height: auto; 
+                margin-top: 40px; 
+                gap: 20px; 
+                justify-content: flex-start;
+            }
+            .nurse-landing { 
+                height: 35vh; 
+                width: 100%; 
+                background-position: center center;
+            }
+            .domain-menu {
+                width: 100%;
+                padding-bottom: 30px;
+            }
             .p3-layout { flex-direction: column; overflow-y: auto; }
             .p3-nurse-full { height: 35vh; width: 100%; }
             .p3-cards-container { width: 100%; height: auto; min-height: 50vh; }
@@ -233,7 +268,7 @@
     <div class="p1-layout">
         <div class="nurse-landing"></div>
         <div class="domain-menu">
-            <h2 style="font-family:'Bangers'; color: white; text-shadow: 4px 4px #2d3436; font-size: 2.5rem; margin-bottom: 20px;">CHOOSE A DOMAIN</h2>
+            <h2 style="font-family:'Bangers'; color: white; text-shadow: 4px 4px #2d3436; font-size: 2.5rem; margin-bottom: 10px; margin-top: 0;">CHOOSE A DOMAIN</h2>
             <button class="btn-main" onclick="selectDomain('Academic')">📚 Academic</button>
             <button class="btn-main" onclick="selectDomain('Psychomotor')">🏃 Psychomotor</button>
             <button class="btn-main" onclick="selectDomain('Cognitive')">🧠 Cognitive</button>
@@ -262,7 +297,6 @@
 </div>
 
 <script>
-    // Contains strictly and exclusively your specified entries
     const data = {
         Academic: {
             "Poor Concentration": ["Utilize the Pomodoro Technique: study dedicatedly for 25 minutes, then take a short 5-minute mental break."],
@@ -314,7 +348,6 @@
             let sols = data[currentDomain][p];
             let solHtml = sols.map(s => `<li>${s}</li>`).join("");
 
-            // Normalizes matching local file names (e.g., "Crying Easily" -> "crying-easily.gif")
             let gifFilename = p.toLowerCase()
                                .replace(/[^a-z0-9\s/]/g, '')
                                .replace(/[\s/]+/g, '-');
