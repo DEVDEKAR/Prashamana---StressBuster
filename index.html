@@ -283,7 +283,7 @@
 </div>
 
 <div id="page3" class="page">
-    <button class="nav-btn" onclick="goBackProblems()">⬅ BACK</button>
+    <button class="nav-btn" onclick="goBackProblems()">⬅️ BACK</button>
     <div class="p3-layout">
         <div class="p3-nurse-full"></div>
         <div class="p3-cards-container" id="cards"></div>
@@ -306,20 +306,18 @@ const data = {
             "Reach out directly to professional counselors or trusted guidance networks for emotional support.",
             "Engage in intentional, positive self-talk to redirect mental focus and rebuild personal assurance."
         ],
-        "Negative Thinking": ["Take an active break and go for a relaxing walk in natural, open green environments."
-                             "Start Journaling your thoughts regularly."]
+        "Negative Thinking": ["Take an active break and go for a relaxing walk in natural, open green environments."]
     },
     Affective: {
         "Crying Easily": ["Allow yourself the emotional space to cry it out and naturally discharge pent-up internal pressures."],
-        "Irritability": ["Initiate processing, supportive conversations with a closely trusted loved one or friend."
-                        "Stress Ball Squeeze Acitivity can be added to the routine for initial relief."]
+        "Irritability": ["Initiate processing, supportive conversations with a closely trusted loved one or friend."]
     },
     Psychomotor: {
-        "Frequent Headaches": ["Perform systematic structural neck exercises to rest the muscles and lower tension benchmarks as shown in the video."],
+        "Frequent Headaches": ["Perform systematic structural eye exercises to rest optical muscles and lower tension benchmarks."],
         "Muscle Tension / Body Pain": ["Engage in targeted physical stretching exercises to safely release somatic physical stress."],
         "Irregular Sleep": [
             "Strictly follow a balanced sleep cycle routine; systematically monitor where your rest gets disturbed and proactively erase those activities.",
-            "Watch this sleep management reference guide: <a href='https://youtube.com/shorts/GeQK1Ej-Fpg?si=ztdTmS46jVrorRGK' target='_blank' onclick='event.stopPropagation();' style='color: #d63031; text-decoration: underline; font-weight: bold;'>Sleep Cycle Video</a>"
+            "Watch this sleep management reference guide: <a href='https://www.youtube.com' target='_blank' onclick='event.stopPropagation();' style='color: #d63031; text-decoration: underline; font-weight: bold;'>Sleep Cycle Video</a>"
         ],
         "Changes in Appetite": ["Adapt eating habits to small, frequent, and well-balanced nutritional meals throughout the day."]
     }
@@ -355,7 +353,7 @@ function showCards() {
     
     let solHtml = "";
     if (sols) {
-        solHtml = sols.map(s => `<li>${s}</li>`).join("");
+        solHtml = sols.map(s => <li>${s}</li>).join("");
     } else {
         solHtml = "<li>Practice structured mindfulness and decompression routines regularly.</li>";
     }
@@ -390,11 +388,11 @@ function showCards() {
     let mediaTag = "";
     if (mediaFilename !== "") {
         if (mediaFilename.endsWith(".mp4")) {
-            mediaTag = `<video class="inline-media" src="${mediaFilename}" autoplay loop muted playsinline controls onclick="event.stopPropagation();"></video>`;
+            mediaTag = <video class="inline-media" src="${mediaFilename}" autoplay loop muted playsinline controls onclick="event.stopPropagation();"></video>;
         } else if (mediaFilename === "deep breathing.gif") {
-            mediaTag = `<img class="inline-media large-breathing-gif" src="${mediaFilename}" alt="Deep Breathing Exercise" onclick="event.stopPropagation();">`;
+            mediaTag = <img class="inline-media large-breathing-gif" src="${mediaFilename}" alt="Deep Breathing Exercise" onclick="event.stopPropagation();">;
         } else {
-            mediaTag = `<img class="inline-media" src="${mediaFilename}" alt="Visual Activity Guide" onclick="event.stopPropagation();">`;
+            mediaTag = <img class="inline-media" src="${mediaFilename}" alt="Visual Activity Guide" onclick="event.stopPropagation();">;
         }
     }
     
