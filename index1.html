@@ -188,7 +188,7 @@
 
         /* Responsive Card container dimensions */
         .card { width: 100%; height: 420px; perspective: 1000px; }
-        .card.large-media { height: 500px; } /* Gives extra room for bigger media elements */
+        .card.large-media { height: 500px; } 
         
         .card-inner { width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; position: relative; }
         .card.flipped .card-inner { transform: rotateY(180deg); }
@@ -214,7 +214,6 @@
             background: white;
         }
 
-        /* Custom sizing class for deep breathing GIF */
         .large-breathing-gif {
             max-height: 280px !important; 
         }
@@ -306,18 +305,24 @@ const data = {
             "Reach out directly to professional counselors or trusted guidance networks for emotional support.",
             "Engage in intentional, positive self-talk to redirect mental focus and rebuild personal assurance."
         ],
-        "Negative Thinking": ["Take an active break and go for a relaxing walk in natural, open green environments."]
+        "Negative Thinking": [
+            "Take an active break and go for a relaxing walk in natural, open green environments.",
+            "Start journaling your thoughts on a routine basis."
+        ]
     },
     Affective: {
         "Crying Easily": ["Allow yourself the emotional space to cry it out and naturally discharge pent-up internal pressures."],
-        "Irritability": ["Initiate processing, supportive conversations with a closely trusted loved one or friend."]
+        "Irritability": [
+            "Initiate processing, supportive conversations with a closely trusted loved one or friend.",
+            "Follow the ball squeeze exercise for initial relief."
+        ]
     },
     Psychomotor: {
-        "Frequent Headaches": ["Perform systematic structural neck exercises to rest the muscles and lower tension benchmarks as shown in the video."],
+        "Frequent Headaches": ["Perform systematic structural neck exercises to rest the muscles and lower tension benchmarks."],
         "Muscle Tension / Body Pain": ["Engage in targeted physical stretching exercises to safely release somatic physical stress."],
         "Irregular Sleep": [
             "Strictly follow a balanced sleep cycle routine; systematically monitor where your rest gets disturbed and proactively erase those activities.",
-            "Watch this sleep management reference guide: <a href='https://youtube.com/shorts/GeQK1Ej-Fpg?si=ztdTmS46jVrorRGK' target='_blank' onclick='event.stopPropagation();' style='color: #d63031; text-decoration: underline; font-weight: bold;'>Sleep Cycle Video</a>"
+            "Watch this sleep management reference guide: <a https://youtube.com/shorts/GeQK1Ej-Fpg?si=ztdTmS46jVrorRGK' target='_blank' onclick='event.stopPropagation();' style='color: #d63031; text-decoration: underline; font-weight: bold;'>Sleep Cycle Video</a>"
         ],
         "Changes in Appetite": ["Adapt eating habits to small, frequent, and well-balanced nutritional meals throughout the day."]
     }
@@ -365,9 +370,8 @@ function showCards() {
     // Assign media assets based on keywords
     if (checkText.includes("worry") || checkText.includes("anxiety") || checkText.includes("breathing")) {
         mediaFilename = "deep breathing.gif";
-        isLargeMedia = true; // Flag to apply expanded size properties
+        isLargeMedia = true; 
     } else if (checkText.includes("concentration")) {
-        // No graphic block requested here for Poor Concentration since video link is loaded directly into text
         mediaFilename = ""; 
     } else if (checkText.includes("helpless") || checkText.includes("confidence")) {
         mediaFilename = "low self confidence.mp4";
@@ -396,7 +400,6 @@ function showCards() {
         }
     }
     
-    // Renders the cleaner page presentation structure
     container.innerHTML = `
         <div style="width: 100%; max-width: 360px; margin: auto;">
             <div class="card ${isLargeMedia ? 'large-media' : ''}" onclick="this.classList.toggle('flipped')">
