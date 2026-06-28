@@ -336,10 +336,12 @@ function showCards() {
         let sols = data[currentDomain][p];
         let solHtml = sols.map(s => `<li>${s}</li>`).join("");
 
+        // Baseline string conversion 
         let gifFilename = p.toLowerCase()
                            .replace(/[^a-z0-9\s/]/g, '')
                            .replace(/[\s/]+/g, '-');
         
+        // Manual short-name mapping for your target files
         if (p.includes("Excessive Worry")) {
             gifFilename = "deep-breathing";
         }
@@ -354,7 +356,7 @@ function showCards() {
                     <div class="card-back">
                         <strong style="color:#d63031; border-bottom:2px solid #ddd; padding-bottom:5px; margin-bottom:8px; display:block;">SOLUTIONS:</strong>
                         <ul class="sol-list">${solHtml}</ul>
-                        <img class="card-gif" src="${gifFilename}.gif" alt="${p} Visual Guide" onerror="this.style.display='none';">
+                        <img class="card-gif" src="${gifFilename}.gif" alt="${p} Visual Guide">
                     </div>
                 </div>
             </div>`;
