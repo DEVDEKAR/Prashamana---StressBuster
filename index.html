@@ -341,31 +341,35 @@ function showCards() {
         let sols = data[currentDomain][p];
         let solHtml = sols.map(s => `<li>${s}</li>`).join("");
 
-        // Base fallback file target
-        let mediaFilename = "poor-concentration.gif";
+        // Normalize text to lowercase to ensure clean matches
+        let checkText = p.toLowerCase();
+        let mediaFilename = "";
         
-        // Dynamic file assignments matching repo exactly
-        if (p.includes("Excessive Worry")) {
+        // Dynamic file matching using simplified robust checks
+        if (checkText.includes("worry") || checkText.includes("anxiety") || checkText.includes("breathing")) {
             mediaFilename = "deep breathing.jpg";
-        } else if (p.includes("Poor Concentration")) {
-            mediaFilename = "poor-concentration.gif";
-        } else if (p.includes("Feeling Helpless & Hopeless")) {
+        } else if (checkText.includes("concentration")) {
+            // Using your available negative thoughts fallback asset since poor-concentration.gif is missing
+            mediaFilename = "negavtive thoughts.gif"; 
+        } else if (checkText.includes("helpless") || checkText.includes("confidence")) {
             mediaFilename = "low self confidence.mp4";
-        } else if (p.includes("Negative Thinking")) {
+        } else if (checkText.includes("negative")) {
             mediaFilename = "negavtive thoughts.gif";
-        } else if (p.includes("Crying Easily")) {
+        } else if (checkText.includes("crying") || checkText.includes("cry")) {
             mediaFilename = "cry.jpeg";
-        } else if (p.includes("Irritability")) {
+        } else if (checkText.includes("irritability")) {
             mediaFilename = "irritability.webp";
-        } else if (p.includes("Frequent Headaches")) {
+        } else if (checkText.includes("headache")) {
             mediaFilename = "headache relieving exercise.mp4";
-        } else if (p.includes("Muscle Tension / Body Pain")) {
+        } else if (checkText.includes("tension") || checkText.includes("body pain")) {
             mediaFilename = "body pain.mp4";
-        } else if (p.includes("Changes in Appetite")) {
+        } else if (checkText.includes("appetite") || checkText.includes("apetite")) {
             mediaFilename = "changes in apetite.jpeg";
+        } else {
+            mediaFilename = "negavtive thoughts.gif"; // Safe overall fallback
         }
 
-        // Generate element depending on file extension type
+        // Generate elements based on file extension format
         let mediaTag = "";
         if (mediaFilename.endsWith(".mp4")) {
             mediaTag = `<video class="card-gif" src="${mediaFilename}" autoplay loop muted playsinline></video>`;
