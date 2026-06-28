@@ -17,7 +17,7 @@
             overflow-x: hidden;
         }
 
-        /* Modern Modern Header */
+        /* Modern Header */
         .app-header {
             position: fixed;
             top: 0;
@@ -132,7 +132,7 @@
             flex: 1;
             height: 100%;
             background: url('3.webp') no-repeat center bottom;
-            background-size: contain; /* Nurse becomes bigger and clearer */
+            background-size: contain;
             border-radius: 20px;
         }
 
@@ -181,19 +181,31 @@
             border-radius: 12px;
         }
 
-        .card { width: 260px; height: 190px; perspective: 1000px; }
+        /* Updated heights to accommodate the newly added list items and images */
+        .card { width: 280px; height: 320px; perspective: 1000px; }
         .card-inner { width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; position: relative; }
         .card.flipped .card-inner { transform: rotateY(180deg); }
         
         .card-front, .card-back {
             position: absolute; width: 100%; height: 100%;
             backface-visibility: hidden; border: 4px solid #2d3436; border-radius: 20px;
-            padding: 20px; box-sizing: border-box; display: flex; flex-direction: column;
+            padding: 15px; box-sizing: border-box; display: flex; flex-direction: column;
         }
-        .card-front { background: #ff7675; color: white; font-family: 'Bangers'; justify-content: center; align-items: center; font-size: 1.5rem; text-align: center; }
-        .card-back { background: #55efc4; transform: rotateY(180deg); text-align: left; }
+        .card-front { background: #ff7675; color: white; font-family: 'Bangers'; justify-content: center; align-items: center; font-size: 1.6rem; text-align: center; }
+        .card-back { background: #55efc4; transform: rotateY(180deg); text-align: left; overflow-y: auto; }
 
-        .sol-list { margin: 10px 0 0 0; padding-left: 20px; font-weight: bold; font-size: 1rem; line-height: 1.5; }
+        .sol-list { margin: 5px 0 10px 0; padding-left: 20px; font-weight: bold; font-size: 0.95rem; line-height: 1.4; }
+        
+        /* Solution GIF Style */
+        .card-gif {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border: 2px solid #2d3436;
+            border-radius: 10px;
+            margin-top: auto;
+            background-color: #eee;
+        }
 
         /* Responsive Mobile */
         @media (max-width: 768px) {
@@ -252,34 +264,38 @@
 <script>
     const data = {
         Academic: {
-            "Exam Anxiety": ["Deep breathing for 5 mins.", "Focus on preparation, not result."],
-            "Sleep Disturbance": ["No phone 30m before bed.", "Stick to a fixed sleep schedule."],
-            "Fear of Failure": ["Break syllabus into small goals.", "Celebrate small learning wins."],
-            "Result Stress": ["Focus on next improvement step.", "Don't compare marks with others."],
-            "Performance Pressure": ["5-10 min break every 1 hour.", "Set realistic study targets."],
-            "Lack of Motivation": ["Use the Pomodoro technique.", "Reward yourself after tasks."],
-            "Overwhelmed Syllabus": ["Priority list of topics first.", "Focus on one chapter at a time."],
-            "Appetite Changes": ["Eat small regular meals.", "Drink water or juices often."]
+            "Poor Concentration": ["Implement the Pomodoro Technique: study for 25 minutes, then take a 5-minute break.", "Eliminate minor environmental and digital distractions."],
+            "Excessive Worry / Exam Anxiety / Fear of Failure": ["Practice focused deep breathing exercises for 5-10 minutes to calm the nervous system.", "Reframe thoughts to target active preparation instead of final results."],
+            "Sleep Disturbance": ["Disconnect from electronic screens at least 30 minutes before bed.", "Stick strictly to a stable, restorative sleep routine."],
+            "Result Stress": ["Concentrate entirely on your next actionable improvement step.", "Refrain from comparing personal markers or scores with peers."],
+            "Performance Pressure": ["Integrate systematic 5-10 minute breaks after every hour of continuous work.", "Establish manageable and realistic target benchmarks."],
+            "Lack of Motivation": ["Incorporate standard workflow pacing methods like the Pomodoro system.", "Provide yourself with tangible small rewards upon completing difficult tasks."],
+            "Overwhelmed Syllabus": ["Construct an optimized priority index of core target topics.", "Direct attention sequentially to one specific chapter layout at a time."]
         },
         Psychomotor: {
-            "Restlessness": ["Practice meditation exercises.", "Try grounding techniques."],
-            "Pacing": ["Short guided relaxation.", "Sit in a comfortable chair."],
-            "Fatigue": ["20-30 min power nap.", "Light physical stretching."],
-            "Social Withdrawal": ["Talk to one trusted person daily.", "Spend time in shared spaces."],
-            "Appetite Timing": ["Follow regular meal timings.", "Choose balanced, small portions."]
+            "Frequent Headaches": ["Perform guided structural eye exercises regularly to minimize visual fatigue.", "Limit prolonged, continuous screen time intervals through proactive rest."],
+            "Muscle Tension / Body Pain": ["Engage in targeted physical stretching exercises to relieve structural stiffness.", "Maintain healthy ergonomic posture configurations during long working sessions."],
+            "Irregular Sleep": ["Establish a standardized daily sleep cycle routine to monitor disturbances.", "Track rest habits closely and systematically eliminate problematic pre-bed activities."],
+            "Changes in Appetite": ["Consume regular, smaller, and well-balanced meal portions across the day.", "Maintain high hydration benchmarks by drinking plenty of water or clear juices."],
+            "Procrastination": ["Set dedicated structural execution timers or explicit priority schedules.", "Initiate difficult tasks immediately using brief, low-friction effort spans."],
+            "Restlessness": ["Incorporate meditative mindfulness exercises to reduce systemic pacing patterns.", "Utilize physical sensory grounding mechanics to steady focus."],
+            "Pacing": ["Deploy brief, guided behavioral relaxation models.", "Sit comfortably in an unhurried, peaceful setting."],
+            "Fatigue": ["Utilize brief 20-30 minute tactical power naps to restore mental clarity.", "Incorporate low-impact physical stretching breaks."],
+            "Social Withdrawal": ["Maintain consistent communication ties with at least one trusted confidant.", "Spend occasional structured blocks of time in communal or shared spaces."]
         },
         Cognitive: {
-            "Concentration": ["Study in a quiet place.", "Remove all digital distractions."],
-            "Forgetfulness": ["Revision within 24 hours.", "Use flashcards or mind maps."],
-            "Negative Thinking": ["Practice positive self-talk.", "Challenge unrealistic thoughts."],
-            "Self-Doubt": ["Recall one past success.", "Acknowledge your own effort."],
-            "Decision Difficulty": ["Set a 10 min time limit.", "Commit to the chosen choice."]
+            "Feeling Helpless & Hopeless": ["Reach out to professional support networks or local guidance counselors.", "Break daily routines down into minor, highly manageable tasks."],
+            "Low Self Confidence": ["Actively engage in positive, constructive self-talk.", "Document and review a log of individual capabilities and past achievements."],
+            "Negative Thinking": ["Take deliberate processing walks through natural, green outdoor spaces.", "Actively challenge unrealistic, self-defeating assumptions as they surface."],
+            "Self-Doubt": ["Intentionally recall clear instances of past functional success.", "Acknowledge the objective work and effort you put into tasks."],
+            "Decision Difficulty": ["Enforce strict, brief time parameters (e.g., a 10-minute cap) for minor choices.", "Commit confidently to your chosen direction without backward second-guessing."]
         },
         Affective: {
-            "Irritability": ["Take a 5-minute pause.", "Count to ten before speaking."],
-            "Mood Swings": ["Maintain a regular routine.", "Keep a simple mood journal."],
-            "Sadness": ["Express feelings via writing.", "Talk to a trusted friend."],
-            "Emotional Exhaustion": ["Take a 15 min light walk.", "Listen to calming melodies."]
+            "Crying Easily": ["Allow yourself the space to safely express your authentic emotions.", "Process complex underlying feelings comfortably through private journaling."],
+            "Irritability": ["Initiate direct, processing conversations with a trusted close friend or family member.", "Pause and take a deliberate 10-second breath before responding during interactions."],
+            "Mood Swings": ["Preserve a structured daily operational routine to stabilize emotional rhythms.", "Keep a simplified mood tracker journal to recognize subtle behavioral triggers."],
+            "Sadness": ["Externalize internal weights through expressive writing exercises.", "Confide your feelings within a reliable, supportive social circle."],
+            "Emotional Exhaustion": ["Take short 15-minute walks outdoors to refresh your perspective.", "Listen to calming instrumental music or soothing acoustic soundscapes."]
         }
     };
 
@@ -311,13 +327,19 @@
             let sols = data[currentDomain][p];
             let solHtml = sols.map(s => `<li>${s}</li>`).join("");
 
+            // Generates clean file names. (e.g., "Poor Concentration" becomes "poor-concentration.gif")
+            let gifFilename = p.toLowerCase()
+                               .replace(/[^a-z0-9\s/]/g, '') // Remove special characters except slash and space
+                               .replace(/[\s/]+/g, '-');     // Convert spaces and slashes to hyphens
+            
             container.innerHTML += `
                 <div class="card" onclick="this.classList.toggle('flipped')">
                     <div class="card-inner">
                         <div class="card-front">${p}</div>
                         <div class="card-back">
-                            <strong style="color:#d63031; border-bottom:2px solid #ddd; padding-bottom:5px; margin-bottom:10px; display:block;">SOLUTIONS:</strong>
+                            <strong style="color:#d63031; border-bottom:2px solid #ddd; padding-bottom:5px; margin-bottom:8px; display:block;">SOLUTIONS:</strong>
                             <ul class="sol-list">${solHtml}</ul>
+                            <img class="card-gif" src="${gifFilename}.gif" alt="${p} Visual Guide" onerror="this.style.display='none';">
                         </div>
                     </div>
                 </div>`;
@@ -340,3 +362,4 @@
 </body>
 </html>
 
+```
