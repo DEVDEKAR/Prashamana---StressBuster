@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prashamana (प्रशमन): Nurturing the Caregiver</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@800&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* ================= GLOBAL ================= */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Comic Neue', cursive;
+            background-color: #f0f8ff;
+            overflow-x: hidden;
+        }
+
+        /* Modern Header */
+        .app-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            text-align: center;
+            background: #ffffff;
+            padding: 15px 0;
+            border-bottom: 5px solid #2d3436;
+            z-index: 1000;
+        }
+
+        .app-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1rem, 5vw, 2rem);
+            color: #2d3436;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .app-header span { color: #d63031; border-bottom: 3px solid #d63031; }
+
+        .page {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            padding-top: 80px;
+            box-sizing: border-box;
+        }
+
+        .active { display: flex; }
+
+        /* ================= PAGE 1 ================= */
+        #page1 { background: #62c6e2; align-items: center; justify-content: center; overflow: hidden; }
+
+        .p1-layout {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            gap: 40px;
+            z-index: 10;
+        }
+
+        .nurse-landing {
+            flex: 1.4;
+            height: 100%;
+            background: url('1.jpeg') no-repeat center center;
+            background-size: contain;
+        }
+
+        .domain-menu {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .decoration {
+            position: absolute;
+            font-size: 65px;
+            opacity: 0.9;
+            z-index: 1;
+            filter: drop-shadow(5px 5px 0px rgba(0,0,0,0.3));
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-10px, -20px) rotate(5deg); }
+        }
+
+        /* ================= PAGE 2 ================= */
+        #page2 { background-color: #e3f2fd; align-items: center; justify-content: center; }
+
+        .medical-border-frame {
+            width: 90%;
+            height: 80vh;
+            background: url('2.jpg') no-repeat center;
+            background-size: 100% 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 6px solid #2d3436;
+            border-radius: 30px;
+        }
+
+        .problem-content {
+            width: 80%;
+            max-width: 480px;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 30px;
+            border-radius: 20px;
+            border: 4px solid #62c6e2;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+
+        /* ================= PAGE 3 ================= */
+        #page3 { background: #d48e8e; align-items: center; justify-content: center; }
+
+        .p3-layout {
+            display: flex;
+            width: 95%;
+            height: 85vh;
+            gap: 20px;
+            align-items: flex-start;
+            padding-top: 20px;
+        }
+
+        .p3-nurse-full {
+            flex: 1;
+            height: 100%;
+            background: url('3.webp') no-repeat center bottom;
+            background-size: contain;
+            border-radius: 20px;
+        }
+
+        .p3-cards-container {
+            flex: 1.2;
+            height: 90%;
+            background: rgba(255, 255, 255, 0.95);
+            border: 6px solid #2d3436;
+            border-radius: 35px;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
+        }
+
+        /* ================= UI ELEMENTS ================= */
+        .btn-main {
+            width: 280px;
+            padding: 16px;
+            background: white;
+            border: 4px solid #2d3436;
+            border-radius: 15px;
+            font-family: 'Bangers';
+            font-size: 1.6rem;
+            cursor: pointer;
+            box-shadow: 6px 6px 0px #2d3436;
+            transition: 0.2s;
+        }
+
+        .btn-main:hover { transform: translate(-3px, -3px); box-shadow: 10px 10px 0px #2d3436; background: #ffeaa7; }
+
+        .nav-btn {
+            position: absolute;
+            top: 100px;
+            left: 30px;
+            background: #ff3b3b;
+            color: white;
+            border: 3px solid black;
+            padding: 10px 20px;
+            font-family: 'Bangers';
+            cursor: pointer;
+            z-index: 2000;
+            border-radius: 12px;
+        }
+
+        /* Responsive Card container dimensions */
+        .card { width: 100%; height: 420px; perspective: 1000px; }
+        .card.large-media { height: 500px; } /* Gives extra room for bigger media elements */
+        
+        .card-inner { width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; position: relative; }
+        .card.flipped .card-inner { transform: rotateY(180deg); }
+        
+        .card-front, .card-back {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden; border: 4px solid #2d3436; border-radius: 20px;
+            padding: 20px; box-sizing: border-box; display: flex; flex-direction: column;
+        }
+        .card-front { background: #ff7675; color: white; font-family: 'Bangers'; justify-content: center; align-items: center; font-size: 1.8rem; text-align: center; }
+        .card-back { background: #55efc4; transform: rotateY(180deg); text-align: left; overflow-y: auto; justify-content: flex-start; }
+
+        .sol-list { margin: 5px 0 15px 0; padding-left: 20px; font-weight: bold; font-size: 1rem; line-height: 1.5; }
+        
+        .inline-media {
+            width: 100%;
+            height: auto;
+            max-height: 180px;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 2px solid #2d3436;
+            margin-top: auto;
+            background: white;
+        }
+
+        /* Custom sizing class for deep breathing GIF */
+        .large-breathing-gif {
+            max-height: 280px !important; 
+        }
+
+        /* Responsive Mobile & Tablet Layout Updates */
+        @media (max-width: 768px) {
+            #page1 { overflow-y: auto; }
+            .p1-layout { 
+                flex-direction: column; 
+                height: auto; 
+                margin-top: 40px; 
+                gap: 20px; 
+                justify-content: flex-start;
+            }
+            .nurse-landing { 
+                height: 35vh; 
+                width: 100%; 
+                background-position: center center;
+            }
+            .domain-menu {
+                width: 100%;
+                padding-bottom: 30px;
+            }
+            .p3-layout { flex-direction: column; overflow-y: auto; }
+            .p3-nurse-full { height: 35vh; width: 100%; }
+            .p3-cards-container { width: 100%; height: auto; min-height: 50vh; padding: 15px; }
+            .nav-btn { top: 75px; left: 15px; font-size: 0.9rem; }
+            .card { height: 460px; }
+            .card.large-media { height: 540px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="app-header">
+    <h1>PRASHAMANA: <span>Nurturing the Caregiver</span></h1>
+</header>
+
+<div id="page1" class="page active">
+    <div class="decoration" style="top:15%; left:5%;">💉</div>
+    <div class="decoration" style="bottom:15%; left:8%;">💊</div>
+    <div class="decoration" style="top:25%; right:10%;">🏥</div>
+    <div class="decoration" style="bottom:10%; right:5%;">❤️</div>
+
+    <div class="p1-layout">
+        <div class="nurse-landing"></div>
+        <div class="domain-menu">
+            <h2 style="font-family:'Bangers'; color: white; text-shadow: 4px 4px #2d3436; font-size: 2.5rem; margin-bottom: 10px; margin-top: 0;">CHOOSE A DOMAIN</h2>
+            <button class="btn-main" onclick="selectDomain('Academic')">📚 Academic</button>
+            <button class="btn-main" onclick="selectDomain('Psychomotor')">🏃 Psychomotor</button>
+            <button class="btn-main" onclick="selectDomain('Cognitive')">🧠 Cognitive</button>
+            <button class="btn-main" onclick="selectDomain('Affective')">💛 Affective</button>
+        </div>
+    </div>
+</div>
+
+<div id="page2" class="page">
+    <button class="nav-btn" onclick="goHome()">🏠 HOME</button>
+    <div class="medical-border-frame">
+        <div class="problem-content">
+            <h2 id="domainTitle" style="font-family:'Bangers'; color: #d63031; text-align: center; font-size: 2rem; margin-top:0;"></h2>
+            <div id="problemList"></div>
+            <button class="btn-main" style="width: 100%; background: #2ecc71; margin-top: 20px;" onclick="showCards()">VIEW SOLUTION</button>
+        </div>
+    </div>
+</div>
+
+<div id="page3" class="page">
+    <button class="nav-btn" onclick="goBackProblems()">⬅ BACK</button>
+    <div class="p3-layout">
+        <div class="p3-nurse-full"></div>
+        <div class="p3-cards-container" id="cards"></div>
+    </div>
+</div>
+
+<script>
+const data = {
+    Academic: {
+        "Poor Concentration": [
+            "Practice the specific hand movement exercise shown in the video link below to synchronize your brain hemispheres and improve focus.",
+            "Watch this YouTube Short: <a href='https://youtube.com/shorts/YdB7I6X8x9U' target='_blank' onclick='event.stopPropagation();' style='color: #d63031; text-decoration: underline; font-weight: bold;'>Hand Movement Activity</a>"
+        ],
+        "Excessive Worry / Exam Anxiety / Fear of Failure": [
+            "Practice systematic deep breathing patterns to lower stress signals and restore steady focus."
+        ]
+    },
+    Cognitive: {
+        "Feeling Helpless & Hopeless / Low Self Confidence": [
+            "Reach out directly to professional counselors or trusted guidance networks for emotional support.",
+            "Engage in intentional, positive self-talk to redirect mental focus and rebuild personal assurance."
+        ],
+        "Negative Thinking": ["Take an active break and go for a relaxing walk in natural, open green environments."
+        "Start Journaling your thoughts."]
+    },
+    Affective: {
+        "Crying Easily": ["Allow yourself the emotional space to cry it out and naturally discharge pent-up internal pressures."],
+        "Irritability": ["Initiate processing, supportive conversations with a closely trusted loved one or friend."
+        "Ball Squeezing exercise for initial relief."]
+    },
+    Psychomotor: {
+        "Frequent Headaches": ["Perform systematic structural neck exercises to rest the muscles and lower tension benchmarks as shown in the video."],
+        "Muscle Tension / Body Pain": ["Engage in targeted physical stretching exercises to safely release somatic physical stress."],
+        "Irregular Sleep": [
+            "Strictly follow a balanced sleep cycle routine; systematically monitor where your rest gets disturbed and proactively erase those activities.",
+            "Watch this sleep management reference guide: <a href='https://youtube.com/shorts/GeQK1Ej-Fpg?si=ztdTmS46jVrorRGK' target='_blank' onclick='event.stopPropagation();' style='color: #d63031; text-decoration: underline; font-weight: bold;'>Sleep Cycle Video</a>"
+        ],
+        "Changes in Appetite": ["Adapt eating habits to small, frequent, and well-balanced nutritional meals throughout the day."]
+    }
+};
+
+let currentDomain = "";
+
+function selectDomain(domain) {
+    currentDomain = domain;
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page2").classList.add("active");
+    document.getElementById("domainTitle").innerText = domain + " Challenges";
+    
+    let list = "";
+    let isFirst = true;
+    for (let prob in data[domain]) {
+        list += `<label style="display:flex; align-items:center; font-size:1.15rem; margin-bottom:12px; cursor:pointer; background: #fff; padding: 10px; border-radius: 12px; border: 2px solid #eee; box-shadow: 3px 3px 0px rgba(0,0,0,0.05);">
+                 <input type="radio" name="problemGroup" value="${prob}" ${isFirst ? 'checked' : ''} style="width:20px; height:20px; margin-right:15px;"> ${prob}</label>`;
+        isFirst = false;
+    }
+    document.getElementById("problemList").innerHTML = list;
+}
+
+function showCards() {
+    const selected = document.querySelector('#problemList input[name="problemGroup"]:checked');
+    if (!selected) return alert("Please select a challenge!");
+
+    const container = document.getElementById("cards");
+    container.innerHTML = "";
+
+    let p = selected.value.trim();
+    let sols = data[currentDomain][p];
+    
+    let solHtml = "";
+    if (sols) {
+        solHtml = sols.map(s => `<li>${s}</li>`).join("");
+    } else {
+        solHtml = "<li>Practice structured mindfulness and decompression routines regularly.</li>";
+    }
+
+    let checkText = p.toLowerCase();
+    let mediaFilename = "";
+    let isLargeMedia = false;
+    
+    // Assign media assets based on keywords
+    if (checkText.includes("worry") || checkText.includes("anxiety") || checkText.includes("breathing")) {
+        mediaFilename = "deep breathing.gif";
+        isLargeMedia = true; // Flag to apply expanded size properties
+    } else if (checkText.includes("concentration")) {
+        // No graphic block requested here for Poor Concentration since video link is loaded directly into text
+        mediaFilename = ""; 
+    } else if (checkText.includes("helpless") || checkText.includes("confidence")) {
+        mediaFilename = "low self confidence.mp4";
+    } else if (checkText.includes("negative")) {
+        mediaFilename = "negavtive thoughts.gif";
+    } else if (checkText.includes("crying") || checkText.includes("cry")) {
+        mediaFilename = "cry.jpeg";
+    } else if (checkText.includes("irritability")) {
+        mediaFilename = "irritability.webp";
+    } else if (checkText.includes("headache")) {
+        mediaFilename = "headache relieving exercise.mp4";
+    } else if (checkText.includes("tension") || checkText.includes("body pain")) {
+        mediaFilename = "body pain.mp4";
+    } else if (checkText.includes("appetite") || checkText.includes("apetite")) {
+        mediaFilename = "changes in apetite.jpeg";
+    }
+
+    let mediaTag = "";
+    if (mediaFilename !== "") {
+        if (mediaFilename.endsWith(".mp4")) {
+            mediaTag = `<video class="inline-media" src="${mediaFilename}" autoplay loop muted playsinline controls onclick="event.stopPropagation();"></video>`;
+        } else if (mediaFilename === "deep breathing.gif") {
+            mediaTag = `<img class="inline-media large-breathing-gif" src="${mediaFilename}" alt="Deep Breathing Exercise" onclick="event.stopPropagation();">`;
+        } else {
+            mediaTag = `<img class="inline-media" src="${mediaFilename}" alt="Visual Activity Guide" onclick="event.stopPropagation();">`;
+        }
+    }
+    
+    // Renders the cleaner page presentation structure
+    container.innerHTML = `
+        <div style="width: 100%; max-width: 360px; margin: auto;">
+            <div class="card ${isLargeMedia ? 'large-media' : ''}" onclick="this.classList.toggle('flipped')">
+                <div class="card-inner">
+                    <div class="card-front">${p}</div>
+                    <div class="card-back">
+                        <strong style="color:#d63031; border-bottom:2px solid #ddd; padding-bottom:5px; margin-bottom:8px; display:block;">SOLUTION:</strong>
+                        <ul class="sol-list">${solHtml}</ul>
+                        ${mediaTag}
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page3").classList.add("active");
+}
+
+function goHome() {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page1").classList.add("active");
+}
+
+function goBackProblems() {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page2").classList.add("active");
+}
+</script>
+</body>
+</html>
