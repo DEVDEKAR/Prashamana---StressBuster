@@ -51,51 +51,37 @@
 
         .active { display: flex; }
 
-        /* ================= PAGE 1 ================= */
-        #page1 { background: #62c6e2; align-items: center; justify-content: center; overflow: hidden; }
+    /* ================= PAGE 1 ================= */
+#page1 { background: #62c6e2; align-items: center; justify-content: center; overflow: hidden; }
 
-        .p1-layout {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            width: 90%;
-            max-width: 1200px;
-            height: 80vh;
-            gap: 40px;
-            z-index: 10;
-        }
+.p1-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    max-width: 1000px; /* Limits the total width to keep items together */
+    height: 80vh;
+    gap: 40px; /* Defines the space between the nurse and the menu */
+    z-index: 10;
+}
 
-        .nurse-landing {
-            flex: 1.4;
-            height: 100%;
-            background: url('1.jpeg') no-repeat center center;
-            background-size: contain;
-        }
+.nurse-landing {
+    flex: 0 0 350px; /* Locks the nurse image size */
+    height: 100%;
+    background: url('1.jpeg') no-repeat center center;
+    background-size: contain;
+}
 
-        .domain-menu {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .decoration {
-            position: absolute;
-            font-size: 65px;
-            opacity: 0.9;
-            z-index: 1;
-            filter: drop-shadow(5px 5px 0px rgba(0,0,0,0.3));
-            animation: float 4s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-10px, -20px) rotate(5deg); }
-        }
-
+.domain-menu {
+    flex: 0 1 400px; /* Constrains the menu width to stay near the nurse */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
         /* ================= PAGE 2 ================= */
         #page2 { background-color: #e3f2fd; align-items: center; justify-content: center; }
 
@@ -123,39 +109,43 @@
         }
 
         /* ================= PAGE 3 ================= */
-        #page3 { background: #d48e8e; align-items: center; justify-content: center; }
+       /* ================= PAGE 3 ================= */
+#page3 {
+    background: #d48e8e;
+    align-items: center;
+    justify-content: center;
+}
 
-        .p3-layout {
-            display: flex;
-            width: 95%;
-            height: 85vh;
-            gap: 20px;
-            align-items: flex-start;
-            padding-top: 20px;
-        }
+.p3-layout {
+    display: flex;
+    width: 98%;
+    height: 90vh;
+    gap: 20px;
+    align-items: stretch;
+    padding-top: 10px;
+}
 
-        .p3-nurse-full {
-            flex: 1;
-            height: 100%;
-            background: url('3.webp') no-repeat center bottom;
-            background-size: contain;
-            border-radius: 20px;
-        }
+.p3-nurse-full {
+    flex: 1;
+    height: 100%;
+    background: url('3.webp') no-repeat center bottom;
+    background-size: contain;
+    border-radius: 20px;
+}
 
-        .p3-cards-container {
-            flex: 1.5;
-            height: 90%;
-            background: rgba(255, 255, 255, 0.95);
-            border: 6px solid #2d3436;
-            border-radius: 35px;
-            padding: 35px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-y: auto;
-            box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
-        }
-
+.p3-cards-container {
+    flex: 2.3;
+    height: 100%;
+    background: rgba(255,255,255,0.95);
+    border: 6px solid #2d3436;
+    border-radius: 35px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
+}
         /* ================= UI ELEMENTS ================= */
         .btn-main {
             width: 280px;
@@ -187,69 +177,144 @@
         }
 
         /* ENLARGED CARD GEOMETRY - Fills out maximum whiteboard area */
-        .card { 
-            width: 100%; 
-            max-width: 650px; 
-            height: 550px; 
-            perspective: 1500px; 
-        }
-        
-        .card-inner { width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; position: relative; }
-        .card.flipped .card-inner { transform: rotateY(180deg); }
-        
-        .card-front, .card-back {
-            position: absolute; width: 100%; height: 100%;
-            backface-visibility: hidden; border: 5px solid #2d3436; border-radius: 25px;
-            padding: 30px; box-sizing: border-box; display: flex; flex-direction: column;
-        }
-        .card-front { background: #ff7675; color: white; font-family: 'Bangers'; justify-content: center; align-items: center; font-size: 2.5rem; text-align: center; letter-spacing: 1px; }
-        .card-back { background: #55efc4; transform: rotateY(180deg); text-align: left; overflow-y: auto; justify-content: flex-start; }
+        .card{
+    width:100%;
+    max-width:900px;
+    height:78vh;
+    min-height:650px;
+    perspective:1500px;
+}
 
-        .sol-list { margin: 10px 0 20px 0; padding-left: 25px; font-weight: bold; font-size: 1.25rem; line-height: 1.6; color: #2d3436; }
+.card-inner{
+    width:100%;
+    height:100%;
+    transition:transform .6s;
+    transform-style:preserve-3d;
+    cursor:pointer;
+    position:relative;
+}
+
+.card.flipped .card-inner{
+    transform:rotateY(180deg);
+}
+
+.card-front,
+.card-back{
+    position:absolute;
+    width:100%;
+    height:100%;
+    backface-visibility:hidden;
+    border:5px solid #2d3436;
+    border-radius:25px;
+    padding:30px;
+    box-sizing:border-box;
+}
+
+.card-front{
+    background:#ff7675;
+    color:white;
+    font-family:'Bangers';
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:2.8rem;
+    text-align:center;
+}
+
+.card-back{
+    background:#55efc4;
+    transform:rotateY(180deg);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}
+       .sol-list{
+    margin:10px 0 20px;
+    padding-left:28px;
+    font-weight:bold;
+    font-size:1.35rem;
+    line-height:1.5;
+    color:#2d3436;
+    flex:0 0 auto;
+}
         
         /* Inline media matches the new wide proportions cleanly */
-        .inline-media {
-            width: 100%;
-            height: auto;
-            max-height: 280px;
-            object-fit: contain;
-            border-radius: 15px;
-            border: 3px solid #2d3436;
-            margin-top: auto;
-            background: white;
-        }
-
+       .inline-media{
+    width:100%;
+    flex:1;
+    min-height:320px;
+    max-height:none;
+    object-fit:contain;
+    border-radius:18px;
+    border:3px solid #2d3436;
+    background:white;
+    margin-top:10px;
+}
         /* Maximized footprint class for deep breathing GIF asset */
-        .large-breathing-gif {
-            max-height: 340px !important; 
-        }
-
+      .large-breathing-gif{
+    width:100%;
+    flex:1;
+    object-fit:contain;
+    max-height:none !important;
+}
         /* Responsive Mobile & Tablet Layout Updates */
-        @media (max-width: 768px) {
-            #page1 { overflow-y: auto; }
-            .p1-layout { 
-                flex-direction: column; 
-                height: auto; 
-                margin-top: 40px; 
-                gap: 20px; 
-                justify-content: flex-start;
-            }
-            .nurse-landing { 
-                height: 35vh; 
-                width: 100%; 
-                background-position: center center;
-            }
-            .domain-menu {
-                width: 100%;
-                padding-bottom: 30px;
-            }
-            .p3-layout { flex-direction: column; overflow-y: auto; }
-            .p3-nurse-full { height: 30vh; width: 100%; }
-            .p3-cards-container { width: 100%; height: auto; min-height: 60vh; padding: 15px; }
-            .nav-btn { top: 75px; left: 15px; font-size: 0.9rem; }
-            .card { height: 500px; }
-            .sol-list { font-size: 1.1rem; }
-        }
+       @media (max-width: 768px) {
+    #page1 {
+        overflow-y: auto;
+    }
+
+    .p1-layout {
+        flex-direction: column;
+        height: auto;
+        margin-top: 40px;
+        gap: 20px;
+        justify-content: flex-start;
+    }
+
+    .nurse-landing {
+        height: 35vh;
+        width: 100%;
+        background-position: center center;
+    }
+
+    .domain-menu {
+        width: 100%;
+        padding-bottom: 30px;
+    }
+
+    .p3-layout {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .p3-nurse-full {
+        height: 30vh;
+        width: 100%;
+    }
+
+    .p3-cards-container {
+        width: 100%;
+        height: auto;
+        min-height: 70vh;
+        padding: 15px;
+    }
+
+    .nav-btn {
+        top: 75px;
+        left: 15px;
+        font-size: 0.9rem;
+    }
+
+    .card {
+        width: 100%;
+        height: 82vh;
+        min-height: 620px;
+    }
+
+    .sol-list {
+        font-size: 1.1rem;
+    }
+}
     </style>
 </head>
 <body>
