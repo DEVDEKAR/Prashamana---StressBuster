@@ -130,7 +130,8 @@
             width: 95%;
             height: 85vh;
             gap: 20px;
-            align-items: center;
+            align-items: flex-start;
+            padding-top: 20px;
         }
 
         .p3-nurse-full {
@@ -150,10 +151,11 @@
             padding: 30px;
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 30px;
             justify-content: center;
             overflow-y: auto;
             box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
+            align-items: flex-start;
         }
 
         /* ================= UI ELEMENTS ================= */
@@ -186,7 +188,7 @@
             border-radius: 12px;
         }
 
-        .card { width: 280px; height: 340px; perspective: 1000px; }
+        .card { width: 100%; height: 280px; perspective: 1000px; }
         .card-inner { width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; position: relative; }
         .card.flipped .card-inner { transform: rotateY(180deg); }
         
@@ -198,16 +200,15 @@
         .card-front { background: #ff7675; color: white; font-family: 'Bangers'; justify-content: center; align-items: center; font-size: 1.6rem; text-align: center; }
         .card-back { background: #55efc4; transform: rotateY(180deg); text-align: left; overflow-y: auto; }
 
-        .sol-list { margin: 5px 0 10px 0; padding-left: 20px; font-weight: bold; font-size: 0.95rem; line-height: 1.4; }
+        .sol-list { margin: 5px 0 10px 0; padding-left: 20px; font-weight: bold; font-size: 1rem; line-height: 1.5; }
         
+        /* Updated GIF class to fit nicely outside the card */
         .card-gif {
             width: 100%;
-            height: 110px;
-            object-fit: cover;
-            border: 2px solid #2d3436;
+            height: auto;
+            max-height: 200px;
+            object-fit: contain;
             border-radius: 10px;
-            margin-top: auto;
-            background-color: #eee;
             display: block;
         }
 
@@ -284,8 +285,8 @@
 const data = {
     Academic: {
         "Poor Concentration": [
-            "Utilize the Pomodoro Technique: study dedicatedly for 25 minutes, then take a short 5-minute mental break.",
-            "Watch this helpful guide: <a href='https://youtube.com/shorts/YdB7I6X8x9U' target='_blank' onclick='event.stopPropagation();' style='color: #d63031; text-decoration: underline; font-weight: bold;'>Pomodoro Technique Video</a>"
+            "Practice the specific hand movement exercise shown in the video below to synchronize your brain hemispheres and improve focus.",
+            "Watch this YouTube Short: <a href='https://youtube.com/shorts/YdB7I6X8x9U' target='_blank' onclick='event.stopPropagation();' style='color: #d63031; text-decoration: underline; font-weight: bold;'>Hand Movement Activity</a>"
         ],
         "Excessive Worry / Exam Anxiety / Fear of Failure": [
             "Practice systematic deep breathing patterns to lower stress signals and restore steady focus."
@@ -374,20 +375,26 @@ function showCards() {
 
         let mediaTag = "";
         if (mediaFilename.endsWith(".mp4")) {
-            mediaTag = `<video class="card-gif" src="${mediaFilename}" autoplay loop muted playsinline></video>`;
+            mediaTag = `<video class="card-gif" src="${mediaFilename}" autoplay loop muted playsinline controls></video>`;
         } else {
             mediaTag = `<img class="card-gif" src="${mediaFilename}" alt="${p} Visual Guide">`;
         }
         
         container.innerHTML += `
-            <div class="card" onclick="this.classList.toggle('flipped')">
-                <div class="card-inner">
-                    <div class="card-front">${p}</div>
-                    <div class="card-back">
-                        <strong style="color:#d63031; border-bottom:2px solid #ddd; padding-bottom:5px; margin-bottom:8px; display:block;">SOLUTIONS:</strong>
-                        <ul class="sol-list">${solHtml}</ul>
-                        ${mediaTag}
+            <div style="display:flex; flex-direction:column; gap:15px; width: 100%; max-width: 300px;">
+                <div class="card" onclick="this.classList.toggle('flipped')">
+                    <div class="card-inner">
+                        <div class="card-front">${p}</div>
+                        <div class="card-back">
+                            <strong style="color:#d63031; border-bottom:2px solid #ddd; padding-bottom:5px; margin-bottom:8px; display:block;">SOLUTIONS:</strong>
+                            <ul class="sol-list">${solHtml}</ul>
+                        </div>
                     </div>
+                </div>
+                
+                <!-- NEW SEPARATE WIDE BOX FOR GIF/VIDEO -->
+                <div style="width: 100%; background: white; padding: 10px; border: 4px solid #2d3436; border-radius: 15px; box-sizing: border-box; box-shadow: 4px 4px 0px rgba(0,0,0,0.1);">
+                    ${mediaTag}
                 </div>
             </div>`;
     });
