@@ -1,3 +1,6 @@
+Here is your revised, streamlined `index (1).html` code. I have updated the script to include **only** the specific challenges and solutions you provided—nothing more, nothing less. The solutions have been given a clean, professional touch while preserving your original inputs.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -181,7 +184,7 @@
             border-radius: 12px;
         }
 
-        /* Updated heights to accommodate the newly added list items and images */
+        /* Layout heights adapted for specific solutions and GIF frames */
         .card { width: 280px; height: 320px; perspective: 1000px; }
         .card-inner { width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; position: relative; }
         .card.flipped .card-inner { transform: rotateY(180deg); }
@@ -196,7 +199,7 @@
 
         .sol-list { margin: 5px 0 10px 0; padding-left: 20px; font-weight: bold; font-size: 0.95rem; line-height: 1.4; }
         
-        /* Solution GIF Style */
+        /* Solution GIF Frame styling */
         .card-gif {
             width: 100%;
             height: 110px;
@@ -262,40 +265,27 @@
 </div>
 
 <script>
+    // Contains strictly and exclusively your specified entries
     const data = {
         Academic: {
-            "Poor Concentration": ["Implement the Pomodoro Technique: study for 25 minutes, then take a 5-minute break.", "Eliminate minor environmental and digital distractions."],
-            "Excessive Worry / Exam Anxiety / Fear of Failure": ["Practice focused deep breathing exercises for 5-10 minutes to calm the nervous system.", "Reframe thoughts to target active preparation instead of final results."],
-            "Sleep Disturbance": ["Disconnect from electronic screens at least 30 minutes before bed.", "Stick strictly to a stable, restorative sleep routine."],
-            "Result Stress": ["Concentrate entirely on your next actionable improvement step.", "Refrain from comparing personal markers or scores with peers."],
-            "Performance Pressure": ["Integrate systematic 5-10 minute breaks after every hour of continuous work.", "Establish manageable and realistic target benchmarks."],
-            "Lack of Motivation": ["Incorporate standard workflow pacing methods like the Pomodoro system.", "Provide yourself with tangible small rewards upon completing difficult tasks."],
-            "Overwhelmed Syllabus": ["Construct an optimized priority index of core target topics.", "Direct attention sequentially to one specific chapter layout at a time."]
-        },
-        Psychomotor: {
-            "Frequent Headaches": ["Perform guided structural eye exercises regularly to minimize visual fatigue.", "Limit prolonged, continuous screen time intervals through proactive rest."],
-            "Muscle Tension / Body Pain": ["Engage in targeted physical stretching exercises to relieve structural stiffness.", "Maintain healthy ergonomic posture configurations during long working sessions."],
-            "Irregular Sleep": ["Establish a standardized daily sleep cycle routine to monitor disturbances.", "Track rest habits closely and systematically eliminate problematic pre-bed activities."],
-            "Changes in Appetite": ["Consume regular, smaller, and well-balanced meal portions across the day.", "Maintain high hydration benchmarks by drinking plenty of water or clear juices."],
-            "Procrastination": ["Set dedicated structural execution timers or explicit priority schedules.", "Initiate difficult tasks immediately using brief, low-friction effort spans."],
-            "Restlessness": ["Incorporate meditative mindfulness exercises to reduce systemic pacing patterns.", "Utilize physical sensory grounding mechanics to steady focus."],
-            "Pacing": ["Deploy brief, guided behavioral relaxation models.", "Sit comfortably in an unhurried, peaceful setting."],
-            "Fatigue": ["Utilize brief 20-30 minute tactical power naps to restore mental clarity.", "Incorporate low-impact physical stretching breaks."],
-            "Social Withdrawal": ["Maintain consistent communication ties with at least one trusted confidant.", "Spend occasional structured blocks of time in communal or shared spaces."]
+            "Poor Concentration": ["Utilize the Pomodoro Technique: study dedicatedly for 25 minutes, then take a short 5-minute mental break."],
+            "Excessive Worry / Exam Anxiety / Fear of Failure": ["Practice systematic deep breathing patterns to lower stress signals and restore steady focus."]
         },
         Cognitive: {
-            "Feeling Helpless & Hopeless": ["Reach out to professional support networks or local guidance counselors.", "Break daily routines down into minor, highly manageable tasks."],
-            "Low Self Confidence": ["Actively engage in positive, constructive self-talk.", "Document and review a log of individual capabilities and past achievements."],
-            "Negative Thinking": ["Take deliberate processing walks through natural, green outdoor spaces.", "Actively challenge unrealistic, self-defeating assumptions as they surface."],
-            "Self-Doubt": ["Intentionally recall clear instances of past functional success.", "Acknowledge the objective work and effort you put into tasks."],
-            "Decision Difficulty": ["Enforce strict, brief time parameters (e.g., a 10-minute cap) for minor choices.", "Commit confidently to your chosen direction without backward second-guessing."]
+            "Feeling Helpless & Hopeless": ["Reach out directly to professional counselors or trusted guidance networks for emotional support."],
+            "Low Self Confidence": ["Engage in intentional, positive self-talk to redirect mental focus and rebuild personal assurance."],
+            "Negative Thinking": ["Take an active break and go for a relaxing walk in natural, open green environments."]
         },
         Affective: {
-            "Crying Easily": ["Allow yourself the space to safely express your authentic emotions.", "Process complex underlying feelings comfortably through private journaling."],
-            "Irritability": ["Initiate direct, processing conversations with a trusted close friend or family member.", "Pause and take a deliberate 10-second breath before responding during interactions."],
-            "Mood Swings": ["Preserve a structured daily operational routine to stabilize emotional rhythms.", "Keep a simplified mood tracker journal to recognize subtle behavioral triggers."],
-            "Sadness": ["Externalize internal weights through expressive writing exercises.", "Confide your feelings within a reliable, supportive social circle."],
-            "Emotional Exhaustion": ["Take short 15-minute walks outdoors to refresh your perspective.", "Listen to calming instrumental music or soothing acoustic soundscapes."]
+            "Crying Easily": ["Allow yourself the emotional space to cry it out and naturally discharge pent-up internal pressures."],
+            "Irritability": ["Initiate processing, supportive conversations with a closely trusted loved one or friend."]
+        },
+        Psychomotor: {
+            "Frequent Headaches": ["Perform systematic structural eye exercises to rest optical muscles and lower tension benchmarks."],
+            "Muscle Tension / Body Pain": ["Engage in targeted physical stretching exercises to safely release somatic physical stress."],
+            "Irregular Sleep": ["Strictly follow a balanced sleep cycle routine; systematically monitor where your rest gets disturbed and proactively erase those activities."],
+            "Changes in Appetite": ["Adapt eating habits to small, frequent, and well-balanced nutritional meals throughout the day."],
+            "Procrastination": ["Enforce focus parameters by explicitly setting an execution timer or mapping out a rigid activity schedule."]
         }
     };
 
@@ -327,10 +317,10 @@
             let sols = data[currentDomain][p];
             let solHtml = sols.map(s => `<li>${s}</li>`).join("");
 
-            // Generates clean file names. (e.g., "Poor Concentration" becomes "poor-concentration.gif")
+            // Normalizes matching local file names (e.g., "Crying Easily" -> "crying-easily.gif")
             let gifFilename = p.toLowerCase()
-                               .replace(/[^a-z0-9\s/]/g, '') // Remove special characters except slash and space
-                               .replace(/[\s/]+/g, '-');     // Convert spaces and slashes to hyphens
+                               .replace(/[^a-z0-9\s/]/g, '')
+                               .replace(/[\s/]+/g, '-');
             
             container.innerHTML += `
                 <div class="card" onclick="this.classList.toggle('flipped')">
